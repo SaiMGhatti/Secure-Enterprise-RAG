@@ -81,6 +81,27 @@ def test_no_authorized_results_skips_llm(monkeypatch):
     assert response.json()["sources"] == []
 
 
+def test_irrelevant_results_are_refused_without_llm(monkeypatch):
+    irrelevant = fake_result()
+    irrelevant["rerank_score"] = -9.0
+    monkeypatch.setattr(service, "_retrieve", lambda q, u: [irrelevant])
+
+    def boom(*args):
+        raise AssertionError("LLM must not be called for irrelevant context")
+
+    monkeypatch.setattr(service.llm, "generate", boom)
+
+    response = client.post(
+        "/query",
+        json={"query": "incident response?"},
+        headers={"Authorization": "Bearer dev-hr-manager"},
+    )
+
+    assert response.status_code == 200
+    assert response.json()["answer"] == service.NO_ACCESS_ANSWER
+    assert response.json()["sources"] == []
+
+
 def test_llm_failure_returns_503(monkeypatch):
     monkeypatch.setattr(service, "_retrieve", lambda q, u: [fake_result()])
 

@@ -52,10 +52,59 @@ The server maps the token to the user, so callers cannot choose their own
 departments or roles. **This is for local development only**; replace
 `app/auth.py` with real token validation (for example OIDC/JWT) before any real use.
 
+## Access-control demo
+
+[Watch the demo video](docs/demo.webm) (about 50 seconds). It shows four scenarios using the
+UI, each captioned:
+
+| Identity | Question | Result |
+|---|---|---|
+| HR Manager | "What is the remote work policy?" | Answered from HR documents |
+| HR Manager | "How are production incidents handled and who must be notified?" (IT topic) | **Refused**, no sources |
+| HR Manager | "What are the vendor payment approval controls?" (Finance topic) | **Refused**, no sources |
+| IT Manager | "How are production incidents handled and who must be notified?" | Answered, cites an IT document |
+
+### Screenshots
+
+**Allowed: HR Manager asks an HR question**
+
+![HR Manager asking an HR question](docs/screenshots/01-hr-manager-hr-question.png)
+
+**Rejected: HR Manager asks about IT**
+
+![HR Manager refused for IT documents](docs/screenshots/02-hr-manager-denied-it.png)
+
+**Rejected: HR Manager asks about Finance**
+
+![HR Manager refused for Finance documents](docs/screenshots/03-hr-manager-denied-finance.png)
+
+**Allowed: IT Manager asks the same IT question**
+
+![IT Manager answered from IT documents](docs/screenshots/04-it-manager-it-question.png)
+
+**Rejected: Finance Associate asks about HR**
+
+![Finance Associate refused for HR documents](docs/screenshots/05-finance-associate-denied-hr.png)
+
+A refused request never reaches the LLM: retrieval is filtered to the user's department
+inside OpenSearch, and if nothing relevant and authorized remains, the API returns a
+fixed refusal. The manager role does not grant access across departments.
+
+To regenerate the video and screenshots (the API must be running and documents indexed):
+
+    pip install playwright
+    playwright install ffmpeg
+    python scripts/record_demo.py
+    python scripts/capture_screenshots.py
+
+It drives the locally installed Microsoft Edge browser.
+
 ## Configuration
 
 Environment variables (or `.env`): `RAG_OLLAMA_URL`, `RAG_OLLAMA_MODEL`,
-`RAG_OLLAMA_TIMEOUT_SECONDS`, `RAG_CANDIDATE_K`, `RAG_TOP_K`.
+`RAG_OLLAMA_TIMEOUT_SECONDS`, `RAG_CANDIDATE_K`, `RAG_TOP_K`, `RAG_MIN_RERANK_SCORE`
+(chunks scoring below this are treated as irrelevant; default `-2.0`, tuned for the
+sample documents).
 
 ## Tests
 

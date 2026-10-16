@@ -14,7 +14,8 @@ SYSTEM_PROMPT = (
 )
 
 NO_ACCESS_ANSWER = (
-    "I couldn't find any information you are authorized to access for that question."
+    "I can't provide that information. I found nothing relevant to your question "
+    "in the documents you are authorized to access."
 )
 
 
@@ -36,7 +37,11 @@ def _retrieve(query: str, user: User) -> list[dict]:
 
 
 def answer_query(query: str, user: User) -> QueryResult:
-    results = _retrieve(query, user)
+    results = [
+        result
+        for result in _retrieve(query, user)
+        if result.get("rerank_score", 0.0) >= settings.min_rerank_score
+    ]
 
     if not results:
         return QueryResult(answer=NO_ACCESS_ANSWER, sources=[])

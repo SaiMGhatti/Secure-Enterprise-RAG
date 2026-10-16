@@ -10,6 +10,8 @@ class Settings(BaseSettings):
 
     candidate_k: int = 20
     top_k: int = 5
+    # Cross-encoder score below which a chunk is treated as not relevant
+    min_rerank_score: float = -2.0
 
 
 settings = Settings()
