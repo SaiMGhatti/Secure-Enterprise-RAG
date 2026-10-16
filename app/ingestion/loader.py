@@ -24,4 +24,8 @@ def discover_documents(
         if file_path.suffix.lower() not in SUPPORTED_EXTENSIONS:
             continue
 
+        # Only files inside a department folder carry a valid category
+        if file_path.parent == root:
+            continue
+
         yield file_path

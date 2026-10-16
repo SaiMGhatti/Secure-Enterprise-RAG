@@ -28,18 +28,21 @@ def main():
 
     employee = User(
         user_id="employee_001",
+        departments=["HR"],
         roles=["employee"],
         groups=["general"],
     )
 
     finance_user = User(
         user_id="finance_001",
+        departments=["Finance"],
         roles=["employee", "finance"],
         groups=["finance"],
     )
 
     security_user = User(
         user_id="security_001",
+        departments=["IT"],
         roles=["it", "security"],
         groups=["security"],
     )

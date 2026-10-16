@@ -7,6 +7,7 @@ def test_employee_can_access_hr_document():
 
     user = User(
         user_id="user-001",
+        departments=["HR"],
         roles=["employee"],
         groups=["US_EMPLOYEES"],
     )
@@ -17,6 +18,9 @@ def test_employee_can_access_hr_document():
         text="Employees receive 15 vacation days.",
         category="HR",
         department="HR",
+        chunk_index=0,
+        version=1,
+        content_hash="hash",
         allowed_roles=["employee", "manager"],
     )
 
@@ -27,6 +31,7 @@ def test_employee_cannot_access_finance_document():
 
     user = User(
         user_id="user-001",
+        departments=["HR"],
         roles=["employee"],
         groups=["US_EMPLOYEES"],
     )
@@ -37,6 +42,9 @@ def test_employee_cannot_access_finance_document():
         text="Executive compensation information.",
         category="Finance",
         department="Finance",
+        chunk_index=0,
+        version=1,
+        content_hash="hash",
         allowed_roles=["finance_manager", "executive"],
     )
 

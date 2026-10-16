@@ -6,6 +6,7 @@ def main():
 
     finance_user = User(
         user_id="finance_001",
+        departments=["Finance"],
         roles=[
             "employee",
             "finance",

@@ -7,12 +7,14 @@ def main():
     users = {
         "employee": User(
             user_id="employee_001",
+            departments=["HR"],
             roles=["employee"],
             groups=["general"],
         ),
 
         "finance": User(
             user_id="finance_001",
+            departments=["Finance"],
             roles=[
                 "employee",
                 "finance",
@@ -22,6 +24,7 @@ def main():
 
         "security": User(
             user_id="security_001",
+            departments=["IT"],
             roles=[
                 "it",
                 "security",
@@ -57,7 +60,7 @@ def main():
         results = hybrid_search(
             query=query,
             user=user,
-            k=5,
+            candidate_k=5,
         )
 
         for rank, result in enumerate(

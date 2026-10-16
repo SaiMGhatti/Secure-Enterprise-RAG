@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Secure Enterprise RAG</title>
+<style>
+  :root { --bg:#f4f6fa; --card:#fff; --ink:#1c2333; --muted:#6b7488; --accent:#2f5bea; --line:#dde2ec; --err:#b42318; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, Segoe UI, sans-serif; background:var(--bg); color:var(--ink); }
+  header { background:var(--ink); color:#fff; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  header h1 { font-size:18px; margin:0; font-weight:600; }
+  .who { display:flex; align-items:center; gap:8px; font-size:14px; }
+  select, textarea, button { font:inherit; }
+  select { padding:6px 8px; border-radius:6px; border:1px solid var(--line); }
+  main { max-width:860px; margin:24px auto; padding:0 16px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px; margin-bottom:16px; }
+  .note { font-size:13px; color:var(--muted); margin:0 0 10px; }
+  textarea { width:100%; min-height:80px; resize:vertical; padding:10px; border:1px solid var(--line); border-radius:8px; }
+  .row { display:flex; justify-content:space-between; align-items:center; margin-top:10px; gap:12px; }
+  button { background:var(--accent); color:#fff; border:0; padding:9px 18px; border-radius:8px; cursor:pointer; }
+  button:disabled { opacity:.55; cursor:default; }
+  .answer { white-space:pre-wrap; line-height:1.5; }
+  .error { color:var(--err); }
+  .meta { font-size:12px; color:var(--muted); margin-top:6px; }
+  ul.sources { list-style:none; padding:0; margin:0; }
+  ul.sources li { padding:8px 0; border-top:1px solid var(--line); font-size:14px; }
+  ul.sources li:first-child { border-top:0; }
+  .tag { display:inline-block; background:#e8edff; color:var(--accent); border-radius:5px; padding:1px 7px; font-size:12px; margin-right:6px; }
+  .hist-q { font-weight:600; cursor:pointer; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Secure Enterprise RAG</h1>
+  <label class="who">Signed in as
+    <select id="identity"></select>
+  </label>
+</header>
+<main>
+  <div class="card">
+    <p class="note">Local development identities. You can only retrieve documents from the selected department.</p>
+    <textarea id="question" placeholder="Ask a question about your department's documents..." maxlength="2000"></textarea>
+    <div class="row">
+      <span class="meta" id="status"></span>
+      <button id="ask">Ask</button>
+    </div>
+  </div>
+
+  <div class="card" id="result" hidden>
+    <div class="answer" id="answer"></div>
+    <h3 style="font-size:14px;margin:16px 0 6px">Sources</h3>
+    <ul class="sources" id="sources"></ul>
+  </div>
+
+  <div class="card" id="historyCard" hidden>
+    <h3 style="font-size:14px;margin:0 0 8px">Recent questions</h3>
+    <div id="history"></div>
+  </div>
+</main>
+
+<script>
+const DEPARTMENTS = ["HR", "IT", "Finance", "Legal"];
+const LEVELS = ["associate", "manager"];
+const $ = (id) => document.getElementById(id);
+const recent = [];
+
+for (const dept of DEPARTMENTS) {
+  for (const level of LEVELS) {
+    const opt = document.createElement("option");
+    opt.value = `dev-${dept.toLowerCase()}-${level}`;
+    opt.textContent = `${dept} - ${level[0].toUpperCase() + level.slice(1)}`;
+    $("identity").appendChild(opt);
+  }
+}
+
+function showError(message) {
+  $("result").hidden = false;
+  $("sources").replaceChildren();
+  const div = $("answer");
+  div.className = "answer error";
+  div.textContent = message;
+}
+
+function renderResult(data) {
+  $("result").hidden = false;
+  $("answer").className = "answer";
+  $("answer").textContent = data.answer;
+
+  const list = $("sources");
+  list.replaceChildren();
+  if (!data.sources.length) {
+    const li = document.createElement("li");
+    li.textContent = "No sources.";
+    list.appendChild(li);
+    return;
+  }
+  for (const s of data.sources) {
+    const li = document.createElement("li");
+    const tag = document.createElement("span");
+    tag.className = "tag";
+    tag.textContent = s.source_id;
+    li.appendChild(tag);
+    li.appendChild(document.createTextNode(`${s.file_name ?? s.document_id} (${s.category})`));
+    list.appendChild(li);
+  }
+}
+
+function addHistory(q) {
+  recent.unshift(q);
+  recent.splice(8);
+  $("historyCard").hidden = false;
+  $("history").replaceChildren(...recent.map((text) => {
+    const div = document.createElement("div");
+    div.className = "hist-q";
+    div.textContent = text;
+    div.onclick = () => { $("question").value = text; };
+    return div;
+  }));
+}
+
+async function ask() {
+  const query = $("question").value.trim();
+  if (!query) return;
+
+  $("ask").disabled = true;
+  $("status").textContent = "Searching and generating an answer...";
+  const started = performance.now();
+
+  try {
+    const response = await fetch("/query", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${$("identity").value}`,
+      },
+      body: JSON.stringify({ query }),
+    });
+
+    if (!response.ok) {
+      let detail = `Request failed (${response.status})`;
+      try { detail = (await response.json()).detail ?? detail; } catch {}
+      showError(detail);
+    } else {
+      renderResult(await response.json());
+      addHistory(query);
+    }
+  } catch (err) {
+    showError("Could not reach the server.");
+  } finally {
+    $("ask").disabled = false;
+    $("status").textContent = `Done in ${((performance.now() - started) / 1000).toFixed(1)}s`;
+  }
+}
+
+$("ask").onclick = ask;
+$("question").addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) ask();
+});
+</script>
+</body>
+</html>

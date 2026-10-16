@@ -2,47 +2,10 @@ from app.models.user import User
 from app.retrieval.embeddings import EmbeddingService
 from app.retrieval.opensearch_client import get_opensearch_client
 from app.retrieval.index import INDEX_NAME
+from app.retrieval.acl_filter import build_acl_filter
 
 
 embedding_service = EmbeddingService()
-
-
-def build_acl_filter(user: User) -> dict:
-    permissions = []
-
-    if user.user_id:
-        permissions.append(
-            {
-                "term": {
-                    "allowed_users": user.user_id
-                }
-            }
-        )
-
-    if user.roles:
-        permissions.append(
-            {
-                "terms": {
-                    "allowed_roles": user.roles
-                }
-            }
-        )
-
-    if user.groups:
-        permissions.append(
-            {
-                "terms": {
-                    "allowed_groups": user.groups
-                }
-            }
-        )
-
-    return {
-        "bool": {
-            "should": permissions,
-            "minimum_should_match": 1
-        }
-    }
 
 
 def vector_search(

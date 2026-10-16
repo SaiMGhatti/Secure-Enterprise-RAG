@@ -7,6 +7,10 @@ def can_access_document(
     chunk: DocumentChunk
 ) -> bool:
 
+    # Department isolation is mandatory; deny if the user has no matching department
+    if chunk.category not in user.departments:
+        return False
+
     # Explicit user permission
     if user.user_id in chunk.allowed_users:
         return True

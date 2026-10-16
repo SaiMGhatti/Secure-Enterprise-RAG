@@ -18,6 +18,7 @@ def create_index():
             }
         },
         "mappings": {
+            "date_detection": False,
             "properties": {
                 "chunk_id": {
                     "type": "keyword"
@@ -59,7 +60,10 @@ def create_index():
                     "type": "keyword"
                 },
                 "metadata": {
-                    "type": "object"
+                    "type": "object",
+                    "properties": {
+                        "effective_date": {"type": "keyword"}
+                    }
                 },
                 "embedding": {
                     "type": "knn_vector",
