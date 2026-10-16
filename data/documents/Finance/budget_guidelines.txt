@@ -1,0 +1,17 @@
+Budget Planning Guidelines
+Effective Date: July 1, 2026
+Policy Owner: Finance
+
+Planning
+Department budgets are reviewed quarterly.
+
+Monitoring
+Budget owners monitor actual spending against approved plans and explain material variances.
+
+Forecasting
+Forecast updates should reflect current commitments, expected purchases, and known changes in staffing or business activity.
+
+Access Classification
+Confidential
+
+Allowed Roles: manager, finance_admin, executive

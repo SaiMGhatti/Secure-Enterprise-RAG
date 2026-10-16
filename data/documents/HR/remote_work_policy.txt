@@ -1,0 +1,17 @@
+Remote Work Policy
+Effective Date: March 1, 2026
+Policy Owner: Human Resources
+
+Eligibility
+Eligible employees may work remotely according to their team's approved schedule.
+
+Security
+Employees must maintain reliable connectivity and use company-approved devices and authentication methods when accessing company resources.
+
+Management
+Managers are responsible for confirming schedules and ensuring required business coverage.
+
+Access Classification
+Internal
+
+Allowed Roles: employee, manager, hr_admin

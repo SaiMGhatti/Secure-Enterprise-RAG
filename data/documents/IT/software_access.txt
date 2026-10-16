@@ -1,0 +1,17 @@
+Software Access Request Policy
+Effective Date: May 1, 2026
+Policy Owner: Information Technology
+
+Requests
+Employees requesting internal application access must submit a request through the access management portal.
+
+Least Privilege
+Requests are reviewed based on job responsibilities and least-privilege principles.
+
+Lifecycle
+Access should be removed when an employee changes roles or leaves the organization.
+
+Access Classification
+Internal
+
+Allowed Roles: employee, manager, it_admin

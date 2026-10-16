@@ -1,0 +1,19 @@
+Synthetic Enterprise RAG Large-Document Dataset
+Purpose: local development/testing only. All content is synthetic.
+Designed for chunk_size=1200 and overlap=200; each document contains substantial multi-section text.
+
+HR/Employee_Leave_and_Time_Off_Policy.pdf | HR-0001 | Internal | employee,manager,hr
+HR/Performance_Management_Guidelines.html | HR-0002 | Internal | employee,manager,hr
+HR/Workplace_Conduct_and_Ethics.txt | HR-0003 | Internal | employee,manager,hr,legal
+HR/Benefits_and_Enrollment_Guide.pdf | HR-0004 | Internal | employee,hr
+IT/Identity_and_Access_Management_Policy.html | IT-0005 | Restricted | it,security,manager
+IT/Incident_Response_Procedure.txt | IT-0006 | Restricted | it,security
+IT/Enterprise_Backup_and_Recovery.pdf | IT-0007 | Internal | it,security
+IT/Software_Change_Management.html | IT-0008 | Internal | developer,it,manager
+Finance/Expense_Reimbursement_Policy.txt | FINANCE-0009 | Internal | employee,manager,finance
+Finance/Financial_Close_and_Reporting.pdf | FINANCE-0010 | Confidential | finance,manager,auditor
+Finance/Vendor_Payment_Controls.html | FINANCE-0011 | Confidential | finance,manager,auditor
+Finance/Budgeting_and_Forecasting.txt | FINANCE-0012 | Confidential | finance,manager
+Legal/Records_Retention_Policy.pdf | LEGAL-0013 | Internal | employee,manager,legal
+Legal/Data_Privacy_and_Handling.html | LEGAL-0014 | Restricted | legal,security,it,manager
+Legal/Third_Party_Contract_Review.txt | LEGAL-0015 | Confidential | legal,procurement,manager

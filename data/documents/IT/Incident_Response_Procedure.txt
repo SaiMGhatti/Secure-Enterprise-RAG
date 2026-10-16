@@ -1,0 +1,57 @@
+Title: Cybersecurity Incident Response Procedure
+Category: IT
+Effective Date: 2026-06-01
+Policy Owner: Security Operations
+Access Classification: Restricted
+Allowed Roles: it,security
+Document ID: IT-0006
+
+1. Purpose and Scope
+This document establishes enterprise requirements, responsibilities, and operating procedures for Cybersecurity Incident Response Procedure. It applies to relevant employees, contractors, managers, systems, records, and business processes. The policy is designed to create consistent controls across departments while allowing documented exceptions when approved by the policy owner. All personnel are expected to understand the requirements that apply to their role and to complete required actions within established service levels.
+
+For the IT domain, implementation teams should document how this requirement maps to their local workflow, system of record, approval group, and evidence repository. The mapping should be reviewed after material process changes. Training materials and runbooks should use the same terminology as this policy so that users can reliably retrieve the correct guidance.
+
+2. Roles and Responsibilities
+The policy owner maintains this standard and coordinates periodic reviews. Managers are responsible for approving requests, validating business need, and escalating unresolved issues. Employees and system users must provide complete and accurate information and must not bypass required controls. Control functions may perform independent review, testing, monitoring, and evidence collection. Administrators must apply least privilege and preserve auditable records.
+
+For the IT domain, implementation teams should document how this requirement maps to their local workflow, system of record, approval group, and evidence repository. The mapping should be reviewed after material process changes. Training materials and runbooks should use the same terminology as this policy so that users can reliably retrieve the correct guidance.
+
+3. Standard Operating Procedure
+Requests must be initiated through an approved enterprise workflow and include the requester, business justification, requested effective date, supporting evidence, and required approvals. The receiving team validates completeness, performs control checks, records the decision, and communicates the outcome. Where automated processing is used, validation failures are routed for manual review. High-risk requests require an additional approver before execution.
+
+For the IT domain, implementation teams should document how this requirement maps to their local workflow, system of record, approval group, and evidence repository. The mapping should be reviewed after material process changes. Training materials and runbooks should use the same terminology as this policy so that users can reliably retrieve the correct guidance.
+
+4. Approval and Escalation
+Routine requests may be approved by the designated manager or control owner. Requests involving elevated privileges, material financial impact, regulated information, or policy exceptions require secondary approval. Rejected requests must include a reason. Urgent requests may use an expedited path, but retrospective review and documentation are still required. Unresolved disputes are escalated to the policy owner and, when appropriate, Risk, Security, Finance, HR, or Legal.
+
+For the IT domain, implementation teams should document how this requirement maps to their local workflow, system of record, approval group, and evidence repository. The mapping should be reviewed after material process changes. Training materials and runbooks should use the same terminology as this policy so that users can reliably retrieve the correct guidance.
+
+5. Controls and Validation
+Preventive controls include required fields, role-based access checks, separation of duties, approval thresholds, and automated validation rules. Detective controls include periodic reconciliations, exception reports, access reviews, quality sampling, and audit-log monitoring. Evidence must be retained in an approved system. Control failures are documented with an owner, severity, remediation action, target date, and closure evidence.
+
+For the IT domain, implementation teams should document how this requirement maps to their local workflow, system of record, approval group, and evidence repository. The mapping should be reviewed after material process changes. Training materials and runbooks should use the same terminology as this policy so that users can reliably retrieve the correct guidance.
+
+6. Exceptions
+Exceptions are temporary and must identify the specific requirement being waived, business rationale, compensating controls, risk acceptance, owner, and expiration date. An exception does not permanently modify the policy. Expired exceptions must be closed or renewed through the formal process. Repeated exceptions should trigger a review of the underlying process or system design.
+
+For the IT domain, implementation teams should document how this requirement maps to their local workflow, system of record, approval group, and evidence repository. The mapping should be reviewed after material process changes. Training materials and runbooks should use the same terminology as this policy so that users can reliably retrieve the correct guidance.
+
+7. Monitoring and Audit
+Compliance is monitored using operational metrics, control attestations, exception trends, audit logs, and periodic testing. Metrics should identify volume, aging, failures, overrides, and recurring root causes. Material issues are reported to management. Auditors and authorized control teams may request supporting records, approvals, system logs, and evidence that remediation actions were completed.
+
+For the IT domain, implementation teams should document how this requirement maps to their local workflow, system of record, approval group, and evidence repository. The mapping should be reviewed after material process changes. Training materials and runbooks should use the same terminology as this policy so that users can reliably retrieve the correct guidance.
+
+8. Data Handling and Security
+Information used in this process must be handled according to its classification. Confidential or restricted data must only be accessed by authorized roles and transmitted through approved channels. Sensitive values should not be copied into unapproved tickets, chat systems, or local files. Access must be removed when no longer required, and records must follow applicable retention requirements.
+
+For the IT domain, implementation teams should document how this requirement maps to their local workflow, system of record, approval group, and evidence repository. The mapping should be reviewed after material process changes. Training materials and runbooks should use the same terminology as this policy so that users can reliably retrieve the correct guidance.
+
+9. Business Continuity
+Teams must maintain a documented fallback procedure for critical activities when primary systems are unavailable. Manual processing must preserve the same approval and evidence requirements wherever practical. After service restoration, transactions performed under contingency procedures must be reconciled to the system of record and reviewed for duplicates, omissions, or unauthorized changes.
+
+For the IT domain, implementation teams should document how this requirement maps to their local workflow, system of record, approval group, and evidence repository. The mapping should be reviewed after material process changes. Training materials and runbooks should use the same terminology as this policy so that users can reliably retrieve the correct guidance.
+
+10. Examples and Frequently Asked Questions
+Example scenarios include a standard request completed with all approvals, an urgent request requiring retrospective validation, a request rejected because required evidence is missing, and an exception approved with compensating controls and an expiration date. Users should consult the policy owner when a scenario is ambiguous. The absence of an explicit example does not remove the obligation to follow applicable controls and escalation paths.
+
+For the IT domain, implementation teams should document how this requirement maps to their local workflow, system of record, approval group, and evidence repository. The mapping should be reviewed after material process changes. Training materials and runbooks should use the same terminology as this policy so that users can reliably retrieve the correct guidance.

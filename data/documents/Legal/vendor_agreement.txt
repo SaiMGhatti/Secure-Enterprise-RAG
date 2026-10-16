@@ -1,0 +1,14 @@
+Vendor Agreement Guidelines
+Effective Date: August 1, 2026
+Policy Owner: Legal
+
+Terms
+Vendor agreements should define responsibilities, service expectations, confidentiality obligations, data handling requirements, and termination conditions.
+
+Approval
+Business teams must obtain appropriate legal approval before signing agreements with significant contractual or regulatory risk.
+
+Access Classification
+Confidential
+
+Allowed Roles: legal_admin, executive, procurement_admin
